@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Yuji+Mai&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Cinzel:wght@400..900&family=Yuji+Mai&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ROTATE THE IMAGE */
+/* .autoRotate{
+     animation: autoRotateAnimation;
+     animation-timeline: view()
+}
+@keyframes autoRotateAnimation{
+    from{
+       transform: rotate(0deg)
+    }
+    to{
+        transform: rotate(360deg)
+    }
+} */
+
+@keyframes autoRotateAnimation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .autoRotate {
+    
+    -moz-animation: autoRotateAnimation 2s linear infinite;    /* Old Firefox */
+    
+  }
+
+
+/* FONT ANIMATION SMALL TO BIG ON SCROLLOING */
+.autoShow{
+    animation: autoShowAnimation both;
+    animation-timeline: view(70% 5%);
+}
+@keyframes autoShowAnimation{
+    from{
+         opacity: 0;
+         transform: translateY(200px) scale(0.3);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* BLUR HALF SCREEN */
+
+.autoBlur{
+    animation: autoBlurAutomation linear both;
+    animation-timeline: view()
+}
+@keyframes autoBlurAutomation{
+
+
+    0%{
+        filter: blur(40px)
+
+    }
+    45%, 55%{
+        filter: blur(0px)
+    }
+    100%{
+        filter: blur(40px)
+    }
+}
