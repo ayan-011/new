@@ -4,7 +4,7 @@ import './App.css'
 import Home from './components/home'
 import Contact from './components/contact'
 import About from './components/about';
-import Skills from './components/Skills';
+import Animation from './components/Animation';
 
 
  
@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/skills" element={<Skills />} />
+        <Route path="/skills" element={<Animation />} />
      
       </Routes>
     </Router>

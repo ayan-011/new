@@ -6,7 +6,7 @@ import { Bloom } from '@react-three/postprocessing'
 import { EffectComposer } from '@react-three/postprocessing'
 
 
-const Skills = () => {
+const Animation = () => {
 
   
  
@@ -45,7 +45,7 @@ const Skills = () => {
   )
 }
 
-export default Skills
+export default Animation
 
 
 //FOR CYLINDER

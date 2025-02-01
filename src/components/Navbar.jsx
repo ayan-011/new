@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
- 
- const Navbar = () => {
-
-    const location = useLocation(); // Get the current URL path
+const Navbar = () => {
+  const location = useLocation(); // Get the current URL path
   const [active, setActive] = useState("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu toggle
 
   // Update active state based on the current path
   useEffect(() => {
@@ -18,47 +17,181 @@ import { Link, useLocation } from "react-router-dom";
       setActive("contact");
     }
   }, [location]);
-  
-   return (
-    <nav className="flex items-center justify-between top-0 sticky shadow-bottom-only bg-black z-50  lg:h-[70px]   text-white md:h-11   sm:h-10  h-10  opacity-90 backdrop-blur-3xl " >
-    <span className="font-ayan flex items-center justify-center lg:mx-8 mx-1 lg:text-lg md:text-lg sm:text-md text-[12px]">
-      Ayan Saifi
-    </span>
 
-    <ul className="items-center justify-center flex lg:space-x-32 lg:text-[16px]  md:space-x-20 md:text-md sm:space-x-12 sm:text-sm space-x-3  text-[12px]  ">
-      <li
-        className={`hover:cursor-pointer hover:text-blue-400 ${
-          active === "home" ? "underline text-blue-400 underline-offset-8 decoration-3" : ""
-        }`}
-      >
-        <Link to="/">Home</Link>
-      </li>
-      <li
-        className={`hover:cursor-pointer hover:text-blue-400 ${
-          active === "about" ? "underline text-blue-400 underline-offset-8 decoration-3" : ""
-        }`}
-      >
-        <Link to="/about">About</Link>
-      </li>
-      <li
-        className={`hover:cursor-pointer hover:text-blue-400 ${
-          active === "contact" ? "underline text-blue-400 underline-offset-8 decoration-3" : ""
-        }`}
-      >
-        <Link to="/contact">Contact</Link>
-      </li>
-    </ul>
+  // Toggle mobile menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-    <div className="items-center justify-center hover:cursor-pointer flex lg:mx-8 lg:gap-4 md:mx-2 md:gap-3 sm:mx-2 sm:gap-2 mx-2 gap-2 ">
-      <a href="https://www.instagram.com/ayaan_saifi__1/">
-        <img src="/insta.png" alt="Instagram" className="lg:w-3 lg:h-3 md:w-3 md:h-3 sm:w-[10px] sm:h-[10px] w-[8px] h-[8px] text-white" />
-      </a>
-      <img src="/x.png" alt="X" className="lg:w-3 lg:h-3 md:w-3 md:h-3 sm:w-[10px] sm:h-[10px] w-[8px] h-[8px] text-white" />
-      <img src="/f.png" alt="Facebook" className="lg:w-3 lg:h-3 md:w-3 md:h-3 sm:w-[10px] sm:h-[10px] w-[8px] h-[8px] text-white" />
-    </div>
-    <div className="h-[1px] bg-gray-400 w-full absolute bottom-0  "></div>
-  </nav>
-   )
- }
- 
- export default Navbar
+  return (
+    <nav className="sticky top-0 z-10 bg-black text-white opacity-95 backdrop-blur-lg shadow-bottom-only">
+      <div className="container mx-auto flex items-center justify-between p-4">
+        {/* Logo */}
+        <span className="font-ayan text-lg lg:text-xl">Ayan Saifi</span>
+
+        {/* Hamburger Menu (Mobile) */}
+        <div className="lg:hidden">
+          <button onClick={toggleMenu} className="text-white focus:outline-none">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        {/* Navigation Links (Desktop) */}
+        <ul className="hidden lg:flex lg:space-x-8">
+          <li
+            className={`hover:text-blue-400 ${
+              active === "home"
+                ? "underline text-blue-400 underline-offset-8 decoration-3"
+                : ""
+            }`}
+          >
+            <Link to="/">Home</Link>
+          </li>
+          <li
+            className={`hover:text-blue-400 ${
+              active === "about"
+                ? "underline text-blue-400 underline-offset-8 decoration-3"
+                : ""
+            }`}
+          >
+            <Link to="/about">About</Link>
+          </li>
+          <li
+            className={`hover:text-blue-400 ${
+              active === "contact"
+                ? "underline text-blue-400 underline-offset-8 decoration-3"
+                : ""
+            }`}
+          >
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+
+        {/* Social Icons (Desktop) */}
+        <div className="hidden lg:flex lg:space-x-4">
+          <a href="https://www.instagram.com/ayaan_saifi__1/">
+            <img
+              src="/insta.png"
+              alt="Instagram"
+              className="w-5 h-5 hover:opacity-75"
+            />
+          </a>
+          <img
+            src="/x.png"
+            alt="X"
+            className="w-5 h-5 hover:opacity-75"
+          />
+          <img
+            src="/f.png"
+            alt="Facebook"
+            className="w-5 h-5 hover:opacity-75"
+          />
+        </div>
+      </div>
+
+      {/* Mobile Menu (Card Overlay) */}
+      {isMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-20 bg-black bg-opacity-50 backdrop-blur-sm">
+          <div className="fixed top-4 right-4 bg-black rounded-lg shadow-lg w-64 p-6">
+            {/* Close Button */}
+            <button
+              onClick={toggleMenu}
+              className="absolute top-2 right-2 text-white focus:outline-none"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+
+            {/* Menu Links */}
+            <ul className="flex flex-col space-y-4">
+              <li
+                className={`hover:text-blue-400 ${
+                  active === "home"
+                    ? "underline text-blue-400 underline-offset-8 decoration-3"
+                    : ""
+                }`}
+              >
+                <Link to="/" onClick={toggleMenu}>
+                  Home
+                </Link>
+              </li>
+              <li
+                className={`hover:text-blue-400 ${
+                  active === "about"
+                    ? "underline text-blue-400 underline-offset-8 decoration-3"
+                    : ""
+                }`}
+              >
+                <Link to="/about" onClick={toggleMenu}>
+                  About
+                </Link>
+              </li>
+              <li
+                className={`hover:text-blue-400 ${
+                  active === "contact"
+                    ? "underline text-blue-400 underline-offset-8 decoration-3"
+                    : ""
+                }`}
+              >
+                <Link to="/contact" onClick={toggleMenu}>
+                  Contact
+                </Link>
+              </li>
+            </ul>
+
+            {/* Social Icons */}
+            <div className="flex justify-center space-x-4 mt-6">
+              <a href="https://www.instagram.com/ayaan_saifi__1/">
+                <img
+                  src="/insta.png"
+                  alt="Instagram"
+                  className="w-5 h-5 hover:opacity-75"
+                />
+              </a>
+              <img
+                src="/x.png"
+                alt="X"
+                className="w-5 h-5 hover:opacity-75"
+              />
+              <img
+                src="/f.png"
+                alt="Facebook"
+                className="w-5 h-5 hover:opacity-75"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Border */}
+      <div className="h-[1px] bg-gray-400 w-full absolute bottom-0"></div>
+    </nav>
+  );
+};
+
+export default Navbar;
